@@ -1,14 +1,7 @@
-from collections import deque
 import json
-import numpy as np
-import threading
 import websockets
-from datetime import datetime
-from datetime import timedelta
-from decimal import Decimal as dc
 from time import sleep
-import pickle
-import traceback
+import asyncio
 
 
 async def upbit_ws_client():
@@ -38,3 +31,17 @@ async def upbit_ws_client():
                 msg = e
                 print(f'{e}')
         return msg
+
+async def init():
+    error_count = 0
+    while error_count < 10:
+        try:
+            error_msg = await upbit_ws_client()
+            print(f'{error_msg}')
+        except Exception as e:
+            error_count += 1
+            print(f'{e}')
+            sleep(3)
+
+if __name__ == '__main__':
+    asyncio.run(init())

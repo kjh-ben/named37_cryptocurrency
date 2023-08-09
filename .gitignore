@@ -1,2 +1,4 @@
 
 *.pyc
+.idea/named37_cryptocurrency.iml
+*.iml
